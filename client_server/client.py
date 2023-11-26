@@ -4,7 +4,7 @@ import socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect to the server
-server_address = ('localhost', 12345)
+server_address = ('localhost', 8002)
 client_socket.connect(server_address)
 print("Connected to {}:{}".format(*server_address))
 
