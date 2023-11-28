@@ -1,5 +1,8 @@
 import socket
 
+# Define a list of allowed IP addresses
+allowed_ips = ['127.0.0.1']  # Add the IP addresses you want to allow
+
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -16,6 +19,13 @@ while True:
     # Wait for a connection
     print("Waiting for a connection...")
     client_socket, client_address = server_socket.accept()
+
+    # Check if the client's IP address is allowed
+    if client_address[0] not in allowed_ips:
+        print("Connection from {} not allowed. Closing connection.".format(client_address))
+        client_socket.close()
+        continue
+
     print("Connection from", client_address)
 
     # Receive and send data
