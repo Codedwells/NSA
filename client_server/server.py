@@ -9,6 +9,7 @@ server_socket.bind(server_address)
 
 # Listen for incoming connections
 server_socket.listen(1)
+
 print("Server is listening on {}:{}".format(*server_address))
 
 while True:
@@ -21,14 +22,13 @@ while True:
     try:
         while True:
             data = client_socket.recv(1024)
-            if not data:
-                break
             print("Received:", data.decode())
 
             # Send a response back to the client
-            response = "Server received: {}".format(data.decode())
+            response = "{} received".format(data.decode())
             client_socket.sendall(response.encode())
-    finally:
+    except KeyboardInterrupt:
         # Clean up the connection
         print("Closing connection")
+        client_socket.sendall(b'Server closed the connection')
         client_socket.close()
